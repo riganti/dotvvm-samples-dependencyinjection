@@ -1,6 +1,11 @@
 ﻿@viewModel OWINAutofacSample.ViewModels.DefaultViewModel, OWINAutofacSample
 @masterPage Views/MasterPage.dotmaster
+@service log = OWINAutofacSample.Services.SampleLoggingService
 
 <dot:Content ContentPlaceHolderID="MainContent">
+
 	<h1>{{value: Title}}</h1>
+
+    <dot:Button Text="Append to log" Click="{staticCommand: log.Log("Test")}" />
+
 </dot:Content>

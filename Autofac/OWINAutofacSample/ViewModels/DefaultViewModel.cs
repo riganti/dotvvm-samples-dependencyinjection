@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DotVVM.Framework.ViewModel;
 using DotVVM.Framework.Hosting;
+using OWINAutofacSample.Services;
 
 namespace OWINAutofacSample.ViewModels
 {

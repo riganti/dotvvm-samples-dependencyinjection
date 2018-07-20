@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Web;
 using Autofac;
 using DotVVM.Framework.Hosting;
 using DotVVM.Framework.ViewModel.Serialization;
@@ -14,13 +15,15 @@ public class AutofacViewModelLoader : DefaultViewModelLoader
 
     protected override object CreateViewModelInstance(Type viewModelType, IDotvvmRequestContext context)
     {
-        return container.Resolve(viewModelType);
+        var scope = container.BeginLifetimeScope();
+        context.HttpContext.SetItem(typeof(AutofacViewModelLoader).FullName, scope);
+
+        return scope.Resolve(viewModelType);
     }
 
     public override void DisposeViewModel(object instance)
     {
-        // TODO: Can we dispose in any way?
-        // This works, but might lead to memory leaks as the lifetime is the whole application
-        base.DisposeViewModel(instance);
+        var scope = HttpContext.Current.GetOwinContext().GetDotvvmContext().HttpContext.GetItem<ILifetimeScope>(typeof(AutofacViewModelLoader).FullName);
+        scope?.Dispose();
     }
 }

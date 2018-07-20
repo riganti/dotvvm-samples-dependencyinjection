@@ -6,6 +6,8 @@ using DotVVM.Framework.Routing;
 using DotVVM.Framework.ViewModel.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using DotVVM.Framework.Runtime;
+using OWINAutofacSample.Services;
 
 namespace OWINAutofacSample
 {
@@ -38,13 +40,16 @@ namespace OWINAutofacSample
         public void ConfigureServices(IDotvvmServiceCollection services)
         {
             var builder = new ContainerBuilder();
+
             builder.Register(c => new SampleLoggingService()).As<ILoggingService>();
+
             // The following is required to get Autofac to create instances of viewmodels
             // in AutofacViewModelLoader.
             builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
 
             var container = builder.Build();
             services.Services.AddSingleton<IViewModelLoader>(s => new AutofacViewModelLoader(container));
+            services.Services.AddSingleton<IStaticCommandServiceLoader>(s => new AutofacStaticCommandServiceLoader(container));
         }
     }
 }
