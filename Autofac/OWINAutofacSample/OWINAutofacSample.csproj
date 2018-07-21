@@ -120,6 +120,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutofacStaticCommandServiceLoader.cs" />
+    <Compile Include="AutofacUtils.cs" />
     <Compile Include="AutofacViewModelLoader.cs" />
     <Compile Include="Services\ILoggingService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

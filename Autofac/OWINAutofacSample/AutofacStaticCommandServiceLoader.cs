@@ -18,7 +18,13 @@ namespace OWINAutofacSample
 
         public override object GetStaticCommandService(Type serviceType, IDotvvmRequestContext context)
         {
-            return container.Resolve(serviceType);
+            var scope = AutofacUtils.GetOrCreateScope(context, container);
+            return scope.Resolve(serviceType);
+        }
+
+        public override void DisposeStaticCommandServices(IDotvvmRequestContext context)
+        {
+            AutofacUtils.DisposeScope(context);
         }
     }
 }

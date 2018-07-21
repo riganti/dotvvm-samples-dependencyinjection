@@ -41,7 +41,9 @@ namespace OWINAutofacSample
         {
             var builder = new ContainerBuilder();
 
-            builder.Register(c => new SampleLoggingService()).As<ILoggingService>();
+            builder.RegisterType<SampleLoggingService>()
+                .As<ILoggingService>()
+                .InstancePerLifetimeScope();
 
             // The following is required to get Autofac to create instances of viewmodels
             // in AutofacViewModelLoader.
