@@ -1,0 +1,14 @@
+﻿@viewModel AspNetCoreAutofacSample.ViewModels.DefaultViewModel, AspNetCoreAutofacSample
+@masterPage Views/MasterPage.dotmaster
+@service log = AspNetCoreAutofacSample.Services.ILoggingService
+<dot:Content ContentPlaceHolderID="MainContent">
+
+    <h1>{{value: Title}}</h1>
+
+    <dot:Button Text="Append to log (static command)" Click="{staticCommand: log.Log("Test from static command")}" />
+
+    <dot:Button Text="Append to log (command)" Click="{command: log.Log("Test from command")}" />
+
+    <p>The logs can be seen in debug output.</p>
+
+</dot:Content>
