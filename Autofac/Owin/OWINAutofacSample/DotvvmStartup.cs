@@ -39,19 +39,7 @@ namespace OWINAutofacSample
 
         public void ConfigureServices(IDotvvmServiceCollection services)
         {
-            var builder = new ContainerBuilder();
-
-            builder.RegisterType<SampleLoggingService>()
-                .As<ILoggingService>()
-                .InstancePerLifetimeScope();
-
-            // The following is required to get Autofac to create instances of viewmodels
-            // in AutofacViewModelLoader.
-            builder.RegisterSource(new AnyConcreteTypeNotAlreadyRegisteredSource());
-
-            var container = builder.Build();
-            services.Services.AddSingleton<IViewModelLoader>(s => new AutofacViewModelLoader(container));
-            services.Services.AddSingleton<IStaticCommandServiceLoader>(s => new AutofacStaticCommandServiceLoader(container));
+            services.AddDefaultTempStorages("temp");
         }
     }
 }
